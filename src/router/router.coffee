@@ -5,7 +5,8 @@ app = (require 'express')()
 
 #index
 app.get '/', (req, res) ->
-  res.sendFile 'public/html/index.html'
+  #res.sendFile 'public/html/index.html'
+  res.send 'Briko is a smart egg, with love to Mimiko.'
 
 #port
 #use process.env.PORT for c9.io
