@@ -53,8 +53,6 @@ gulp.task 'stylus', ->
   .pipe stylus(use: nib(), compress: true).on('error', gutil.log)
   #output
   .pipe gulp.dest './'
-  #start
-  start()
 
 #coffee
 gulp.task 'coffee', ->
@@ -86,8 +84,6 @@ gulp.task 'jade', ->
   .pipe (jade()).on('error', gutil.log)
   #output
   .pipe gulp.dest './'
-  #start
-  start()
 
 #server
 gulp.task 'server', ->

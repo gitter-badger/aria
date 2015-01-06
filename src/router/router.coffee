@@ -8,6 +8,7 @@ app.get '/', (req, res) ->
   res.sendFile 'public/html/index.html'
 
 #port
+#use process.env.PORT for c9.io
 app.listen process.env.PORT or 80
 
 #log
