@@ -26,7 +26,7 @@
     "jade": "^1.8.2",
     "memory-cache": "0.0.5",
     "nib": "^1.0.4",
-    "node-jquery-lite": "^0.2.4",
+    "node-jquery-lite": "^0.2.6",
     "stylus": "^0.49.3"
   },
   "dependencies": {
