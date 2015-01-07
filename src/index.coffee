@@ -5,4 +5,4 @@ require 'node-jquery-lite'
 $.info 'success', 'server is ready, in ' + ($.now() - $.st) + ' ms'
 
 #test
-$.log 1234
+$.log 'test at c9.io'

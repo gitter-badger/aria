@@ -5,7 +5,6 @@ gulp = require 'gulp'
 gutil = require 'gulp-util'
 watch = require 'gulp-watch'
 plumber = require 'gulp-plumber'
-rename = require 'gulp-rename'
 replace = require 'gulp-replace'
 
 coffee = require 'gulp-coffee'
