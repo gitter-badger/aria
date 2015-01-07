@@ -6,6 +6,7 @@ gutil = require 'gulp-util'
 watch = require 'gulp-watch'
 plumber = require 'gulp-plumber'
 rename = require 'gulp-rename'
+replace = require 'gulp-replace'
 
 coffee = require 'gulp-coffee'
 uglify = require 'gulp-uglify'
@@ -16,8 +17,6 @@ stylus = require 'gulp-stylus'
 nib = require 'nib'
 
 cson = require 'gulp-cson'
-
-server = require 'gulp-express'
 
 #============
 #error
@@ -31,12 +30,6 @@ process.on 'uncaughtException', (err) -> log err.statck
 #log
 log = console.log
 
-#start
-server.start = ->
-  #check ready
-  if server.ready
-    server.run file: 'index.js'
-
 #============
 #task
 #============
@@ -49,8 +42,6 @@ gulp.task 'watch-coffee-source', ->
   .pipe coffee bare: true
   .pipe uglify()
   .pipe gulp.dest './'
-  #server
-  server.start()
 #coffee
 gulp.task 'watch-coffee-server', ->
   list = 'src/server/**/*.coffee'
@@ -60,8 +51,6 @@ gulp.task 'watch-coffee-server', ->
   .pipe coffee bare: true
   .pipe uglify()
   .pipe gulp.dest './server'
-  #server
-  server.start()
 gulp.task 'watch-coffee-client', ->
   list = 'src/client/**/*.coffee'
   gulp.src list
@@ -69,7 +58,7 @@ gulp.task 'watch-coffee-client', ->
   .pipe plumber()
   .pipe coffee bare: true
   .pipe uglify()
-  .pipe gulp.dest './'
+  .pipe gulp.dest './client'
 
 #jade
 gulp.task 'watch-jade-server', ->
@@ -77,14 +66,14 @@ gulp.task 'watch-jade-server', ->
   gulp.src list
   .pipe watch list
   .pipe plumber()
-  .pipe gulp.dest './'
+  .pipe gulp.dest './server'
 gulp.task 'watch-jade-client', ->
   list = 'src/client/**/*.jade'
   gulp.src list
   .pipe watch list
   .pipe plumber()
   .pipe jade()
-  .pipe gulp.dest './'
+  .pipe gulp.dest './client'
 
 #stylus
 gulp.task 'watch-stylus', ->
@@ -104,11 +93,6 @@ gulp.task 'watch-cson', ->
   .pipe cson()
   .pipe gulp.dest './'
 
-#server
-gulp.task 'server', ->
-  server.ready = true
-  server.start()
-
 #default
 gulp.task 'default', [
   'watch-coffee-source'
@@ -118,12 +102,4 @@ gulp.task 'default', [
   'watch-jade-client'
   'watch-stylus'
   'watch-cson'
-  'server'
 ]
-
-#build
-gulp.task 'build', ->
-  #remove folder
-  for a in ['server', 'client']
-    exec = (require 'child_process').exec
-    exec 'rm -rf ' + a
