@@ -32,7 +32,7 @@ gulp.task 'cson', ->
 
   gulp.src './src/**/*.cson'
   #changed
-  .pipe changed './'
+  .pipe changed './', extension: '.json'
   #cson
   .pipe cson().on('error', gutil.log)
   #output
@@ -48,7 +48,7 @@ gulp.task 'stylus', ->
 
   gulp.src './src/**/*.styl'
   #changed
-  .pipe changed './'
+  .pipe changed './', extension: '.css'
   #stylus
   .pipe stylus(use: nib(), compress: true).on('error', gutil.log)
   #output
@@ -62,7 +62,7 @@ gulp.task 'coffee', ->
 
   gulp.src './src/**/*.coffee'
   #changed
-  .pipe changed './'
+  .pipe changed './', extension: '.js'
   #coffee
   .pipe coffee(bare: true).on('error', gutil.log)
   #uglify
@@ -79,7 +79,7 @@ gulp.task 'jade', ->
 
   gulp.src './src/**/*.jade'
   #changed
-  .pipe changed './'
+  .pipe changed './', extension: '.html'
   #jade
   .pipe (jade()).on('error', gutil.log)
   #output
