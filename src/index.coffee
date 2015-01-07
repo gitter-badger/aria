@@ -8,4 +8,4 @@ require './router/router'
 $.info 'success', 'server is ready, in ' + ($.now() - $.st) + ' ms'
 
 #test
-$.log 12
+$.log 'it looks fine!'
