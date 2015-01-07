@@ -21,7 +21,8 @@ start = ->
   #server
   server = require 'gulp-express'
   #run
-  server.run file: 'index.js'
+  process.nextTick ->
+    server.run file: 'index.js'
 
 #task
 
