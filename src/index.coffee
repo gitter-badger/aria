@@ -6,3 +6,6 @@ require './router/router'
 
 #log
 $.info 'success', 'server is ready, in ' + ($.now() - $.st) + ' ms'
+
+#test
+$.log 1

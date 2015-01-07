@@ -11,11 +11,12 @@ app.settings['x-powered-by'] = false
 #date
 date = $.now()
 
-#render
-
 #============
+#render
+render = {}
+
 #common
-renderCommon = (req, res, callback) ->
+render.common = (req, res, callback) ->
   #check url
   path = req.url
   #check if .html
@@ -31,6 +32,14 @@ renderCommon = (req, res, callback) ->
     date: date
   #callback
   callback?()
+
+#index
+render.index = (req, res, callback) ->
+  #render
+  temp = jade.compileFile './client/index/index.jade', cache: jadeCache
+  res.send temp()
+  #callback
+  callback?()
 #============
 
 #router
@@ -38,13 +47,13 @@ renderCommon = (req, res, callback) ->
 #rules
 rules =
   #index
-  '/': null
+  '/': render.index
 
 #execute rules
 for k, v of rules
   do (p = k, c = v) ->
     #callback
-    cb = c or renderCommon
+    cb = c or render.common
     #route
     app.get p, (req, res) ->
       st = $.now()

@@ -17,54 +17,107 @@ server.start = ->
 #log
 log = console.log
 
+#extend
+extend = (target, object) ->
+  t = target
+  for k, v of object
+    t[k] = v
+  t
+
+#path
+parsePath = (src) ->
+  #check src
+  if !src
+    return './'
+
+  #format
+  src = src.replace /\\/g, '/'
+  #check project name
+  if ~src.search '/aria/'
+    src = src.replace /.*\/aria\//, './'
+    return src
+
+  #return
+  src
+
 #compile
 compile = {}
 
 #cson
-compile.cson = (path) ->
+compile.cson = (param) ->
+  #param
+  p = extend
+    path: './src/**/*.cson'
+    changed: true
+  , param
+
   #log
-  log path + ' was changed'
+  log p.path + ' changed'
 
   #require
   cson = require 'gulp-cson'
 
-  gulp.src path
+  #stream
+  stream = gulp.src p.path
+
   #changed
-  .pipe changed './', extension: '.json'
+  if p.changed then stream.pipe changed './', extension: '.json'
+
+  stream
   #cson
   .pipe cson().on('error', gutil.log)
   #output
   .pipe gulp.dest './'
 
 #stylus
-compile.stylus = (path) ->
+compile.stylus = (param) ->
+  #param
+  p = extend
+    path: './src/**/*.styl'
+    changed: true
+  , param
+
   #log
-  log path + ' was changed'
+  log p.path + ' changed'
 
   #require
   stylus = require 'gulp-stylus'
   nib = require 'nib'
 
-  gulp.src path
+  #stream
+  stream = gulp.src p.path
+
   #changed
-  .pipe changed './', extension: '.css'
+  if p.changed then stream.pipe changed './', extension: '.css'
+
+  stream
   #stylus
   .pipe stylus(use: nib(), compress: true).on('error', gutil.log)
   #output
   .pipe gulp.dest './'
 
 #coffee
-compile.coffee = (path) ->
+compile.coffee = (param) ->
+  #param
+  p = extend
+    path: './src/**/*.coffee'
+    changed: true
+  , param
+
   #log
-  log path + ' was changed'
+  log p.path + ' changed'
 
   #require
   coffee = require 'gulp-coffee'
   uglify = require 'gulp-uglify'
 
-  gulp.src path
+  #stream
+  stream = gulp.src p.path
+
   #changed
-  .pipe changed './', extension: '.js'
+  if p.changed then stream.pipe changed './', extension: '.js'
+
+  stream
   #coffee
   .pipe coffee(bare: true).on('error', gutil.log)
   #uglify
@@ -73,20 +126,30 @@ compile.coffee = (path) ->
   .pipe gulp.dest './'
 
   #check path
-  if !~path.search '/public/'
-    #start
+  if !~p.path.search '/public/'
+    #restart
     server.start()
 
 #jade
-compile.jade = (path) ->
+compile.jade = (param) ->
+  #param
+  p = extend
+    path: './src/**/*.jade'
+    changed: true
+  , param
+
   #log
-  log path + ' was changed'
+  log p.path + ' changed'
+
+  #stream
+  stream = gulp.src p.path
+
+  #changed
+  if p.changed then stream.pipe changed './'
 
   #check path
-  if !~path.search '/public/'
-    gulp.src path
-    #changed
-    .pipe changed './'
+  if !~p.path.search '/public/'
+    stream
     #output
     .pipe gulp.dest './client/'
     #return
@@ -95,9 +158,7 @@ compile.jade = (path) ->
   #require
   jade = require 'gulp-jade'
 
-  gulp.src path
-  #changed
-  .pipe changed './', extension: '.html'
+  stream
   #jade
   .pipe (jade()).on('error', gutil.log)
   #output
@@ -110,7 +171,7 @@ gulp.task 'default', ->
     do ->
       arr = if a != 'stylus' then [a, a] else [a, 'styl']
       #watch
-      gulp.watch 'src/**/*.' + arr[1], (e) -> compile[arr[0]] e.path
+      gulp.watch 'src/**/*.' + arr[1], (e) -> compile[arr[0]] path: e.path
 
   #server
 
@@ -118,3 +179,17 @@ gulp.task 'default', ->
   server.ready = true
   #start
   server.start()
+
+#build
+gulp.task 'build', ->
+  #delete
+  for a in ['public', 'client', 'router']
+    exec = (require 'child_process').exec
+    exec 'rm -rf ' + a
+
+  #compile
+  for a in ['coffee', 'jade', 'stylus', 'cson']
+    do ->
+      arr = if a != 'stylus' then [a, a] else [a, 'styl']
+
+      compile[arr[0]] changed: false
