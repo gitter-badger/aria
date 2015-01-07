@@ -73,13 +73,6 @@ compile.coffee = (path) ->
   .pipe gulp.dest './'
 
   #check path
-
-  #gulpfile
-  if ~path.search 'gulpfile.coffee'
-    #exit
-    process.exit()
-
-  #not public
   if !~path.search '/public/'
     #start
     server.start()
@@ -110,27 +103,18 @@ compile.jade = (path) ->
   #output
   .pipe gulp.dest './'
 
-#server
-gulp.task 'server', ->
+#default
+gulp.task 'default', ->
+  #watch
+  for a in ['coffee', 'jade', 'stylus', 'cson']
+    do ->
+      arr = if a != 'stylus' then [a, a] else [a, 'styl']
+      #watch
+      gulp.watch 'src/**/*.' + arr[1], (e) -> compile[arr[0]] e.path
+
+  #server
+
   #ready
   server.ready = true
   #start
   server.start()
-
-#watch
-gulp.task 'watch', ->
-
-  #cson
-  #gulp.watch 'src/**/*.cson', (e) -> compile.cson e.path
-
-  #stylus
-  gulp.watch 'src/**/*.styl', (e) -> compile.stylus e.path
-
-  #coffee
-  gulp.watch 'src/**/*.coffee', (e) -> compile.coffee e.path
-
-  #jade
-  gulp.watch 'src/**/*.jade', (e) -> compile.jade e.path
-
-#default
-gulp.task 'default', ['watch', 'server']
