@@ -62,6 +62,9 @@ rule =
   '/client/*': render.client
   #index
   '/': render.index
+  '/index/': null
+  #blog
+  '/blog/': null
 
 #execute rule
 for k, v of rule
