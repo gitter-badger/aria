@@ -2,6 +2,8 @@
 #require
 #============
 app = (require 'express')()
+session = require 'express-session'
+#cookie = require 'cookie-parser'
 jade = require 'jade'
 
 #============
@@ -13,6 +15,12 @@ date = $.st
 jadeCache = false
 port = process.env.PORT or 80
 base = process.cwd()
+
+#============
+#setting
+#============
+app.settings['x-powered-by'] = false
+app.listen port
 
 #============
 #render
@@ -77,6 +85,7 @@ for k, v of rule
       st = $.now()
       #header
       res.header 'X-Powered-By', 'Mimiko'
+
       #callback
       cb? req, res, (param)->
         #check param
@@ -92,12 +101,6 @@ for k, v of rule
 
         #info
         $.info 'info', req.url + ' is rendered, in ' + $.parsePts($.now() - st) + 'ms'
-
-#============
-#setting
-#============
-app.settings['x-powered-by'] = false
-app.listen port
 
 #============
 #log
