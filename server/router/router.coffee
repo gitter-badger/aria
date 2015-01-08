@@ -52,6 +52,38 @@ render.client = (req, res, callback) ->
   res.sendFile base + req.path
   #callback
   callback?()
+
+#proxy
+render.proxy = (req, res, callback) ->
+  #path
+  path = req.path.replace /\/proxy\//, ''
+
+  #check path
+  if !path
+    #render
+    res.send 'Error'
+    #callback
+    callback?()
+    return
+
+  #check http
+  if !~path.search 'http://'
+    path = 'http://' + path
+
+  $.log path
+
+  #get
+  $.get path
+  .fail ->
+    #render
+    res.send 'Error'
+    #callback
+    callback?()
+  .done (data) ->
+    #render
+    res.send data
+    #callback
+    callback?()
 #============
 
 #============
@@ -63,6 +95,8 @@ rule =
   '/client/*': render.client
   #index
   '/': render.index
+  #proxy
+  '/proxy/*': render.proxy
 
 #execute rule
 for k, v of rule
