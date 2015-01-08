@@ -12,7 +12,10 @@ concat = require 'gulp-concat'
 
 uglify = require 'gulp-uglify'
 
+jade = require 'gulp-jade'
+coffee = require 'gulp-coffee'
 stylus = require 'gulp-stylus'
+cson = require 'gulp-cson'
 
 #============
 #error
@@ -36,9 +39,42 @@ gulp.task 'uglify', ->
   .pipe uglify()
   .pipe gulp.dest './'
 
+#coffee
+gulp.task 'coffee', ->
+  gulp.src ['./**/*.coffee', '!./node_modules/**']
+  .pipe coffee bare: true
+  .pipe gulp.dest './'
+
+#jade
+gulp.task 'jade', ->
+  gulp.src ['./**/*.jade', '!./node_modules/**']
+  .pipe jade()
+  .pipe gulp.dest './'
+
+#stylus
+gulp.task 'stylus', ->
+  gulp.src ['./**/*.styl', '!./node_modules/**']
+  .pipe stylus()
+  .pipe gulp.dest './'
+
+#cson
+gulp.task 'cson', ->
+  gulp.src ['./**/*.cson', '!./node_modules/**']
+  .pipe cson()
+  .pipe gulp.dest './'
+
 #nagisa
 gulp.task 'nagisa', ->
   watch 'client/nagisa/require/**/*.styl', ->
     gulp.src './client/nagisa/core.styl'
     .pipe stylus()
     .pipe gulp.dest './client/nagisa/'
+
+#build
+gulp.task 'build', [
+  'cson'
+  'coffee'
+  'stylus'
+  'uglify'
+  'jade'
+]
