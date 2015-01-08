@@ -62,7 +62,7 @@
     });
   });
 
-  gulp.task('build', ['cson', 'coffee', 'stylus', 'uglify', 'jade']);
+  gulp.task('build', ['clear', 'cson', 'coffee', 'stylus', 'uglify', 'jade']);
 
   gulp.task('clear', function() {
     return gulp.src(['./**/*.map', '!./node_modules/**']).pipe(clean());

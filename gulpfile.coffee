@@ -72,6 +72,7 @@ gulp.task 'nagisa', ->
 
 #build
 gulp.task 'build', [
+  'clear'
   'cson'
   'coffee'
   'stylus'
