@@ -120,33 +120,9 @@ system.func.ready = (callback) ->
           win.remove() if !win.is '#win-hint'
     else $.i '[#area-window]#3'
 
-  #listener of stage
-  do ->
-    #set handle
-    root = $ window
-    body = $$ 'body'
-    stage = $$ '#stage'
-    mainer = $$ '#mainer'
-    #add listener
-    root.resize -> $.delay 'stageResize', 200, resize
-    #function
-    do resize = ->
-      #height fix
-      do ->
-        h = mainer.height() + (root.height() or body.height()) - stage.height()
-        if h > 0 then mainer.css 'min-height': h
-      #shortcut
-      do ->
-        elem = $$ '#btn-top-shortcut'
-        inner = $$ '#guide-inner'
-        if elem.length then elem.css left: inner.offset().left + inner.width() + 16
+  #clear
+  system.func.ready = null
 
-    #debug
-    if system.debug then $.require 'debug'
-
-    #clear
-    system.func.ready = null
-
-    #callback
-    callback?()
+  #callback
+  callback?()
 #======
