@@ -12,6 +12,8 @@ concat = require 'gulp-concat'
 
 uglify = require 'gulp-uglify'
 
+stylus = require 'gulp-stylus'
+
 #============
 #error
 #============
@@ -33,3 +35,10 @@ gulp.task 'uglify', ->
   gulp.src ['./**/*.js', '!./node_modules/**']
   .pipe uglify()
   .pipe gulp.dest './'
+
+#nagisa
+gulp.task 'nagisa', ->
+  watch 'client/nagisa/require/**/*.styl', ->
+    gulp.src './client/nagisa/core.styl'
+    .pipe stylus()
+    .pipe gulp.dest './client/nagisa/'

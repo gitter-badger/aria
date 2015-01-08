@@ -1,0 +1,30 @@
+//-link
+- var link = {}
+//-json
+- link.json = '/client/ushio/json2.js'
+//-jquery
+- link.jquery = {}
+- link.jquery.modern = '/client/ushio/jquery.2.1.1.min.js'
+- link.jquery.ie = '/client/ushio/jquery.1.11.1.min.js'
+//-prepare
+- link.prepare = '/client/ushio/prepare.js'
+//-core
+- link.core = '/client/ushio/core.js'
+//-ready
+- link.ready = '/client/ushio/ready.js'
+
+//-output
+
+//-json
+| <!--[if lt IE 8]><script src="#{link.json}"></script><![endif]-->
+//-jquery
+| <!--[if lte IE 8]><script src="#{link.jquery.ie}"></script><![endif]-->
+| <!--[if (gte IE 9)|!(IE)]><!--><script src="#{link.jquery.modern}"></script><!--<![endif]-->
+//-prepare
+script(src="#{link.prepare}")
+//-path
+script var path={base:"#{base}",cdn:"#{cdn}",ssl:"#{ssl}",api:"#{api}"},date=#{date};debug=1;
+//-core
+script(src="#{link.core}")
+//-ready
+script(src="#{link.ready}")

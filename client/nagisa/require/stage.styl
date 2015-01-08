@@ -1,0 +1,73 @@
+//rule
+if import != false
+  @import 'rule'
+
+//stage
+html
+  position static
+
+body
+  position static
+  background #d8dde8
+  font-size 12px
+  font-family 'Microsoft YaHei', '微软雅黑', tahoma, arial, simsun, '宋体'
+  line-height 16px
+  -webkit-font-smoothing antialiased
+
+//stage
+#stage
+  position relative
+  top 0
+  left 0
+  z-index 0
+  margin 0
+  padding 0
+  background-color #d8dde8
+  text-align center
+
+  &.blur
+    #guide, #block-notice-guide, #header, #mainer, #footer
+      filter blur(4px)
+
+  &.grayscale
+    #guide, #block-notice-guide, #header, #mainer, #footer
+      filter grayscale()
+
+  &.sepia
+    #guide, #block-notice-guide, #header, #mainer, #footer
+      filter sepia(0.35)
+
+  &.invert
+    #guide, #block-notice-guide, #header, #mainer, #footer
+      filter invert()
+
+//header mainer footer
+#guide, #header, #nav, #mainer, #footer
+  clear both
+  width 100%
+
+#guide-inner, #header-inner, #nav-inner, #mainer-inner, #footer-inner
+  margin 0 auto
+  width 80%
+  max-width 1200px
+  min-width 960px
+  text-align left
+  position relative
+
+//header
+#header
+  position relative
+
+#header-inner
+  height 100%
+
+//mainer
+#mainer
+  _height auto !important
+
+//footer
+#footer
+  position relative
+
+#footer-inner
+  height 100%

@@ -1,0 +1,29 @@
+//-path
+include ../sanae/path
+doctype html
+html
+    head
+        //-meta
+        include ../sanae/meta
+        //title
+        title aria
+        //-style
+        include ../sanae/style
+        link(rel="stylesheet", href="/client/index/style/index.css")
+    body
+        //-stage
+        #stage
+            //-info
+            include ../sanae/info
+            //-guide
+            include ../sanae/guide
+            //-header
+            include ../sanae/header
+            //-mainer
+            #mainer
+                #mainer-inner
+                    p.alert test info
+            //-footer
+            include ../sanae/footer
+        //-script
+        include ../sanae/script

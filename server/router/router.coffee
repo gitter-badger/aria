@@ -12,6 +12,7 @@ debug = $.debug
 date = $.st
 jadeCache = false
 port = process.env.PORT or 80
+base = process.cwd()
 
 #============
 #render
@@ -28,7 +29,7 @@ render.common = (req, res, callback) ->
   else
     path += '/index.jade'
   #finish path
-  path = './src/' + path.replace /\/\//, '/'
+  path = './server/' + path.replace /\/\//, '/'
   #render
   temp = jade.compileFile path, cache: jadeCache
   res.send temp
@@ -39,9 +40,16 @@ render.common = (req, res, callback) ->
 #index
 render.index = (req, res, callback) ->
   #render
-  temp = jade.compileFile './src/index/index.jade', cache: jadeCache
+  temp = jade.compileFile './server/index/index.jade', cache: jadeCache
   res.send temp
     date: date
+  #callback
+  callback?()
+
+#client
+render.client = (req, res, callback) ->
+  #render
+  res.sendFile base + req.path
   #callback
   callback?()
 #============
@@ -51,6 +59,8 @@ render.index = (req, res, callback) ->
 #============
 #rule
 rule =
+  #client
+  '/client/*': render.client
   #index
   '/': render.index
 

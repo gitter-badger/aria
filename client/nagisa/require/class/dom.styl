@@ -1,0 +1,121 @@
+//rule
+if import != false
+  @import '../rule'
+
+//input
+input
+  @extend .inline-block
+  margin 4px 2px 0
+  padding 0 4px
+  width 128px
+  height 22px
+  outline none
+  border 1px solid #bbb
+  border-radius 1px
+  background #fff
+  box-shadow 0 1px 1px rgba(#000, 0.1)
+  color #666
+  font-size 12px
+  line-height normal
+  line-height unquote('24px\9')
+
+  &.file
+    width auto
+    box-shadow none
+
+    &:hover
+      box-shadow none
+
+  &.checkbox
+    margin 2px 4px 0 0
+    padding 0
+    width 14px
+    height 14px
+    vertical-align text-top
+    line-height 16px
+
+  &.tag
+    margin 4px auto 0
+    padding 0 4px
+    height 22px
+    background-color #fff !important
+    color #666
+    line-height 22px
+
+  &.name, &.title, &.tag
+    color #666 !important
+
+    &:hover
+      color #555 !important
+
+//textarea
+textarea
+  display block
+  margin 4px 2px 0
+  padding 4px
+  border 1px solid #bbb
+  border-radius 1px
+  box-shadow 0 1px 1px rgba(#000, 0.1)
+  outline none
+
+input, textarea
+  transition color 0.2s
+  transition border-color 0.2s
+
+  &.code
+    border 1px solid #000
+    background-color #222
+    color #0c0
+
+  &.success
+    border-color #468847 !important
+    color #468847 !important
+
+  &.error
+    border-color #c00 !important
+    color #c33 !important
+
+//select
+select
+  @extend .inline-block
+  margin 4px auto 0
+  padding 0
+  min-width 140px
+  width auto
+  height 24px
+  outline none
+  border 1px solid #bbb
+  border-radius 1px
+  background #fff
+  box-shadow 0 1px 1px rgba(#000, 0.1)
+  color #666
+  font-size 12px
+  line-height 24px
+  cursor pointer
+  transition border-color 0.2s
+  &:hover
+    border-color #08c
+
+select.disabled, input.disabled, textarea.disabled
+  border-color #aaa !important
+  background-color #eee !important
+  box-shadow 0 1px 1px rgba(#000, 0.1), inset 0 1px 1px rgba(#000, 0.1) !important
+  color #999 !important
+  cursor not-allowed
+
+input:hover, textarea:hover, input:focus, textarea:focus, input:active, textarea:active
+  border-color #08c
+  box-shadow 0 1px 2px rgba(#000, 0.15)
+
+//table
+.tr
+  position relative
+  display block
+  clear both
+  width 100%
+  height auto
+
+.td
+  @extend .inline-block
+  position relative
+

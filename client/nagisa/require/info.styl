@@ -1,0 +1,436 @@
+//rule
+if import != false
+  @import 'rule'
+
+//info
+#area-info
+  position fixed
+  bottom 24px
+  left 0
+  z-index 10
+  display none
+  margin 0
+  padding 0
+  width auto
+  text-align left
+
+  .item
+    color = color-primary
+    position relative
+    z-index 11
+    display table
+    margin 0 0 8px 0
+    padding 0 8px 0 4px
+    width auto
+    height auto
+    border-left 4px solid darken(color, 10%)
+    border-radius 1px
+    background-color color
+    box-shadow 0 1px 3px rgba(#000, 0.3)
+    color #fff
+    white-space pre-wrap
+    word-break break-all
+    font-weight bold
+    font-size 12px
+    line-height 24px
+    \*display block
+
+    arr = (color-success color-info color-warning color-danger color-debug)
+    for type, i in success info warning error debug
+      &.{type}
+        color = arr[i]
+        background-color color
+        border-color darken(color, 10%)
+
+#area-window
+  @extend .abs
+  top 0
+  left 0
+  z-index 5
+  overflow visible
+  margin 0 auto
+  padding 0
+  width 100%
+  height 0
+  text-align left
+
+//win-ensure
+#win-ensure
+  z-index 11
+  width 320px
+  height 64px
+  border none
+  border-radius 2px
+  background rgba(#000, 0.8) url(image/bg-curtain.png) center center repeat
+  text-align center
+
+  .btn
+    float none
+    margin 16px
+
+.no-rgba #win-ensure
+  background none
+  background-color #111
+
+//info-rise
+.info-rise
+  @extend .abs
+  z-index 65535
+  display block
+  margin 0
+  padding 0 4px
+  width auto
+  height auto
+  border-radius 1px
+  background-color #f69
+  box-shadow 0 0 1px rgba(#000, 0.1)
+  color #fff
+  text-align center
+  font-size 12px
+  line-height 1.5
+  cursor default
+
+//win-hint
+.win-hint
+  color = color-primary
+  z-index 65535
+  display none
+  width auto
+  height auto
+  border none
+  border-radius 2px
+  background-color color
+  background-repeat repeat-x
+  box-shadow none
+  color #fff
+  text-shadow none
+  cursor pointer
+
+  arr = (color-success color-info color-warning color-danger color-debug)
+  for type, i in success info warning error debug
+    &.{type}
+      color = arr[i]
+      background-color color
+
+      .tail
+        color color
+
+  .mainer
+    margin 0
+    padding 8px 16px
+    min-width 32px
+    max-width 640px
+    width auto
+    background-color transparent
+    font-weight bold
+    font-size 12px
+    line-height 1.5
+    _width 160px
+
+  a
+    color #fff
+
+    &:hover
+      text-decoration underline
+
+  .tail
+    @extend .abs
+    @extend .inline-block
+    top auto
+    left auto
+    border 4px solid
+    color color
+    content ''
+
+    &.top
+      top auto
+      left 16px
+      border-right 4px solid transparent
+      border-bottom 4px solid transparent
+      border-left 4px solid transparent
+
+    &.bottom
+      top -8px
+      left 16px
+      border-top 4px solid transparent
+      border-right 4px solid transparent
+      border-left 4px solid transparent
+
+    &.left
+      top 8px
+      left 100%
+      border-top 4px solid transparent
+      border-right 4px solid transparent
+      border-bottom 4px solid transparent
+
+    &.right
+      top 8px
+      left -8px
+      border-top 4px solid transparent
+      border-bottom 4px solid transparent
+      border-left 4px solid transparent
+
+.no-rgba
+  .win-hint
+    .mainer
+      background-color transparent
+
+//win-edit
+#win-edit
+  z-index 255
+  padding 0
+  border none
+  box-shadow none
+  background none
+
+  input
+    margin -4px
+
+  textarea
+    margin -4px
+
+//win-info
+#win-info
+  z-index 255
+  display none
+  border 2px solid #999
+  box-shadow none
+
+  .mainer
+    padding 0
+    width 320px
+    height 144px
+
+    .l
+      width auto
+
+    .r
+      overflow hidden
+      width 220px
+      height 96px
+
+    .hint-info
+      @extend .abs
+      top 0
+      left 0
+      display block
+      width 100%
+      height 160px
+      color #666
+      text-align center
+      font-family Michroma, 'Segoe UI Light', 'Segoe UI', 'Segoe UI WP', 'Microsoft Jhenghei', '微软雅黑', sans-serif, Times
+      font-size 18px
+      line-height 160px
+
+  .card-video
+    .a
+      position relative
+      top 0
+      left 0
+      width 100%
+      height 80px
+
+      .r
+        height 80px
+
+    .b
+      position relative
+      top 0
+      left 0
+      overflow hidden
+      width 100%
+      height 64px
+      border-top 1px solid #eee
+      background-color #fafafa
+
+    .r
+      width 200px
+
+    .name
+      margin 4px 0 0 8px
+      width auto
+      height 16px
+      text-shadow none
+      font-size 11px
+      line-height 16px
+
+    .c
+      display block
+      margin 0 0 0 8px
+      width auto
+      height 16px
+      line-height 16px
+
+  .thumb
+    position relative
+    margin 8px 0 0 8px
+    \*left 8px
+
+  .preview
+    width 100px
+    height 56.25px
+
+  .avatar
+    width 80px
+    height @width
+
+  .title
+    @extend .inline-block
+    overflow hidden
+    margin 8px 0 0 0
+    padding 0 8px 0 0
+    width auto
+    height 16px
+    color #08c
+    font-size 13px
+    line-height @height
+
+    &:hover
+      color #c33
+
+  .pts
+    color #777
+
+  .time
+    display block
+    margin 0 0 0 8px
+    width auto
+    height 16px
+    color #999
+    font-size 11px
+    line-height 16px
+
+  .channel
+    position absolute
+    right 8px
+    bottom 8px
+    margin 0
+    padding 0 8px
+    width auto
+    height 24px
+    border none
+    border-radius 1px
+    background-color #999
+    box-shadow 0 1px 2px rgba(#000, 0.1)
+    color #fff
+    text-align center
+    font-size 12px
+    line-height @height
+    cursor pointer
+
+    &:hover
+      background-color #08c
+
+  .desc
+    display block
+    overflow hidden
+    margin 2px 0 0 0
+    padding 0 8px 0 0
+    max-height 32px
+    width auto
+    height auto
+    color #999
+    font-size 12px
+    line-height 16px
+
+  .sign
+    display block
+    overflow hidden
+    margin 2px 0 0
+    padding-right 8px
+    width auto
+    height 48px
+    color #777
+    font-size 12px
+    line-height 16px
+
+  .name
+    @extend .inline-block
+    overflow hidden
+    margin 8px 0 0
+    width auto
+    height 18px
+    font-size 13px
+    line-height 18px
+
+  .name-videocard
+    top 4px
+    left 8px
+
+  .location
+    display block
+    overflow hidden
+    margin 0
+    width auto
+    height 16px
+    color #999
+    text-shadow none
+    font-size 12px
+    line-height 16px
+
+  .gender
+    margin-left 4px
+    color #fff
+    font-size 10px
+
+  .area-info
+    @extend .abs
+    height 32px
+    line-height 32px
+    width 100%
+    display block
+    font-size 12px
+    overflow hidden
+    left 0
+    top 112px
+    padding 0 8px
+    margin 0 auto
+    border-top 1px #eee solid
+    color #999
+    background-color #fafafa
+
+    a
+      color #999
+
+  .area-tool
+    @extend .abs
+    bottom 8px
+    left auto
+    right 8px
+    overflow hidden
+    margin 0
+    padding 0
+    width 80px
+    height 32px
+    line-height 32px
+    \*width 305px
+
+    .icon
+      margin 0
+
+    a
+      color #fff
+
+    #mail-user-info, #follow-user-info
+      background-color #999
+      width 32px
+      height @width
+      border-radius @width * 0.5
+      display block
+      text-align center
+      line-height @height
+      float left
+      margin-left 8px
+
+      &:hover
+        background-color #08c
+
+#title-info
+  display none
+  margin 5px
+  font-size 12px
+
+#view-info, #comment-info
+  @extend .inline-block
+  margin 0 0 2px 0
+  font-size 12px

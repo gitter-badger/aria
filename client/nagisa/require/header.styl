@@ -1,0 +1,31 @@
+//rule
+if import != false
+  @import 'rule'
+
+//stage
+#header
+  height 96px
+  background-color #0f3854
+
+#nav
+  color = #204066
+  background-color color
+  height 32px
+
+  a
+    display inline-block
+    background-color color - 10%
+    color color + 80%
+    height 28px
+    line-height @height
+    margin 4px 8px 0 0
+    padding 0 8px
+    border-radius 2px 2px 0 0
+
+    &:hover
+      background-color color - 20%
+      color color + 90%
+
+    &.active
+      background-color #fff
+      color color
