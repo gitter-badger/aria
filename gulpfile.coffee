@@ -78,3 +78,8 @@ gulp.task 'build', [
   'uglify'
   'jade'
 ]
+
+#clear
+gulp.task 'clear', ->
+  gulp.src ['./**/*.map', '!./node_modules/**']
+  .pipe clean()
