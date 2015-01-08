@@ -34,7 +34,7 @@
 
   log = console.log;
 
-  gulp.task('uglify', function() {
+  gulp.task('uglify', ['coffee'], function() {
     return gulp.src(['./**/*.js', '!./node_modules/**']).pipe(uglify()).pipe(gulp.dest('./'));
   });
 
@@ -44,7 +44,7 @@
     })).pipe(gulp.dest('./'));
   });
 
-  gulp.task('jade', function() {
+  gulp.task('jade', ['stylus', 'uglify'], function() {
     return gulp.src(['./**/*.jade', '!./node_modules/**']).pipe(jade()).pipe(gulp.dest('./'));
   });
 
@@ -62,7 +62,7 @@
     });
   });
 
-  gulp.task('build', ['clear', 'cson', 'coffee', 'stylus', 'uglify', 'jade']);
+  gulp.task('build', ['clear', 'cson', 'jade']);
 
   gulp.task('clear', function() {
     return gulp.src(['./**/*.map', '!./node_modules/**']).pipe(clean());

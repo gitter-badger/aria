@@ -34,7 +34,7 @@ log = console.log
 #============
 
 #uglify
-gulp.task 'uglify', ->
+gulp.task 'uglify', ['coffee'], ->
   gulp.src ['./**/*.js', '!./node_modules/**']
   .pipe uglify()
   .pipe gulp.dest './'
@@ -46,7 +46,7 @@ gulp.task 'coffee', ->
   .pipe gulp.dest './'
 
 #jade
-gulp.task 'jade', ->
+gulp.task 'jade', ['stylus', 'uglify'], ->
   gulp.src ['./**/*.jade', '!./node_modules/**']
   .pipe jade()
   .pipe gulp.dest './'
@@ -74,9 +74,6 @@ gulp.task 'nagisa', ->
 gulp.task 'build', [
   'clear'
   'cson'
-  'coffee'
-  'stylus'
-  'uglify'
   'jade'
 ]
 
