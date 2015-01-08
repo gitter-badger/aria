@@ -78,7 +78,7 @@ for k, v of rule
       #callback
       cb? req, res, (param)->
         #check param
-        if !param
+        if param
           #failed
           if param.failed
             $.info 'error', req.url + ' is failed, in ' + $.parsePts($.now() - st) + 'ms, due to ' + res.failed
