@@ -51,40 +51,7 @@ render.client = (req, res, callback) ->
   #render
   res.sendFile base + req.path
   #callback
-  callback?()
-
-#proxy
-render.proxy = (req, res, callback) ->
-  #path
-  path = req.path.replace /\/proxy\//, ''
-
-  #check path
-  if !path
-    #render
-    res.send 'Error'
-    #callback
-    callback?()
-    return
-
-  #check http
-  if !~path.search 'http://'
-    path = 'http://' + path
-
-  $.log path
-
-  #get
-  $.get path
-  .fail ->
-    #render
-    res.send 'Error'
-    #callback
-    callback?()
-  .done (data) ->
-    #render
-    res.send data
-    #callback
-    callback?()
-#============
+  callback? silent: true
 
 #============
 #rule
@@ -95,8 +62,6 @@ rule =
   '/client/*': render.client
   #index
   '/': render.index
-  #proxy
-  '/proxy/*': render.proxy
 
 #execute rule
 for k, v of rule
@@ -105,16 +70,23 @@ for k, v of rule
     cb = c or render.common
     #route
     app.get p, (req, res) ->
-      st = $.now()
       #header
       res.header 'X-Powered-By', 'Mimiko'
       #callback
-      cb? req, res, ->
-        #check res.failed
-        if res.failed
-          $.info 'error', req.url + ' is failed, in ' + $.parsePts($.now() - st) + 'ms, due to ' + res.failed
-        else
-          $.info 'info', req.url + ' is rendered, in ' + $.parsePts($.now() - st) + 'ms'
+      cb? req, res, (param)->
+        #check param
+        if !param
+          #failed
+          if param.failed
+            $.info 'error', req.url + ' is failed, in ' + $.parsePts($.now() - st) + 'ms, due to ' + res.failed
+            return
+
+          #silent
+          if param.silent
+            return
+
+        #info
+        $.info 'info', req.url + ' is rendered, in ' + $.parsePts($.now() - st) + 'ms'
 
 #============
 #setting
