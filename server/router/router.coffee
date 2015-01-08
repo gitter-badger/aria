@@ -73,6 +73,8 @@ for k, v of rule
     cb = c or render.common
     #route
     app.get p, (req, res) ->
+      #start time
+      st = $.now()
       #header
       res.header 'X-Powered-By', 'Mimiko'
       #callback
