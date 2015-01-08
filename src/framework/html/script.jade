@@ -1,0 +1,41 @@
+//-link
+- var link = {};
+//-json
+- link.json = 'script/json2.js';
+//-jquery
+- link.jquery = {};
+- link.jquery.modern = 'script/jquery.2.1.1.min.js';
+- link.jquery.ie = 'script/jquery.1.11.1.min.js';
+//-prepare
+- link.prepare = 'script/prepare.0.0.5.min.js';
+//-core
+- link.core = 'script/core.0.3.19.min.js';
+//-ready
+- link.ready = 'script/ready.0.3.29.min.js';
+//-debug
+- if(debug)
+    //-json
+    | <!--[if lt IE 8]><script src="#{path}/#{link.json}"></script><![endif]-->
+    //-jquery
+    | <!--[if lte IE 8]><script src="#{path}/#{link.jquery.ie}"></script><![endif]-->
+    | <!--[if (gte IE 9)|!(IE)]><!--><script src="#{path}/#{link.jquery.modern}"></script><!--<![endif]-->
+    //-prepare
+    script(src="#{path}/#{link.prepare}")
+    //-path
+    script var path={base:"#{base}",cdn:"#{cdn}",ssl:"#{ssl}",api:"#{api}"},date=#{date};debug=1;
+    //-core
+    script(src="#{path}/script/core.js")
+    //-ready
+    script(src="#{path}/script/ready.js")
+    //-test
+    - if(test)
+        script(src="#{path}/project/test/script/qunit-1.15.0.min.js")
+- else
+    //output
+    | <!--[if lt IE 8]><script src="#{path}/??#{link.json},#{link.jquery.ie},#{link.prepare}"></script><![endif]-->
+    | <!--[if IE 8]><script src="#{path}/??#{link.jquery.ie},#{link.prepare}"></script><![endif]-->
+    | <!--[if (gte IE 9)|!(IE)]><!--><script src="#{path}/??#{link.jquery.modern},#{link.prepare}"></script><!--<![endif]-->
+    //-path
+    script var path={base:"#{base}",cdn:"#{cdn}",ssl:"#{ssl}",api:"#{api}"},date=#{date};
+    //-output
+    | <script src="#{path}/??#{link.core},#{link.ready}"></script>

@@ -1,0 +1,62 @@
+//rule
+if import != false
+  @import '../rule'
+
+.ribbon
+  @extend .inline-block
+  \*width 240px
+  background-color color-primary
+  position relative
+  height 32px
+  line-height @height
+  font-size 14px
+  color #fff
+  margin 0 0 16px -25px
+  padding 0 16px
+  border-radius 0 1px 1px 0
+  box-shadow 0 1px 1px rgba(#000, 0.1)
+  text-shadow 0 1px 1px rgba(#000, 0.1)
+  z-index 0
+  cursor default
+
+  &.success
+    background-color color-success
+    &:before
+      border-color (color-success - 20%) (color-success - 20%) transparent transparent
+
+  &.info
+    background-color color-info
+    &:before
+      border-color (color-info - 20%) (color-info - 20%) transparent transparent
+
+  &.warning
+    background-color color-warning
+    &:before
+      border-color (color-warning - 20%) (color-warning - 20%) transparent transparent
+
+  &.error, &.danger
+    background-color color-danger
+    &:before
+      border-color (color-danger - 20%) (color-danger - 20%) transparent transparent
+
+  &.debug
+    background-color color-debug
+    &:before
+      border-color (color-debug - 20%) (color-debug - 20%) transparent transparent
+
+  &.disabled
+    background-color #999
+    cursor not-allowed
+    &:before
+      border-color (#999 - 20%) (#999 - 20%) transparent transparent
+
+  &:before
+    content ''
+    border-color (color-primary - 20%) (color-primary - 20%) transparent transparent
+    border-style solid
+    border-width 4px
+    width 0
+    height @width
+    position absolute
+    left 0
+    top 32px

@@ -1,0 +1,39 @@
+//rule
+if import != false
+  @import '../rule'
+
+//area
+.area
+  position relative
+
+.area-left, .area.left
+  @extend .inline-block
+  position relative
+  float left
+  margin 0
+  padding 0
+  width 50%
+  height 100%
+
+.area-right, .area.right
+  @extend .inline-block
+  position relative
+  float right
+  margin 0
+  padding 0
+  width 50%
+  height 100%
+
+//preload
+.preloader
+  @extend .abs
+  top -16px
+  left -16px
+  z-index -1
+  width 1px
+  height 1px
+  opacity 0
+
+//location
+.location
+  color #999

@@ -1,0 +1,113 @@
+//rule
+if import != false
+  @import '../rule'
+
+//banner
+.banner
+  @extend .no-select
+  position relative
+  width auto
+  height 36px
+  border-bottom 1px solid #ddd
+  background-color #fff
+  color #666
+  text-align left
+  font-size 14px
+  line-height 34px
+  \*zoom 1
+  margin 0
+  padding 0
+
+  &.mini
+    height 28px
+    line-height 26px
+
+    .tab
+      height 26px
+      line-height 26px
+
+  .tab
+    @extend .inline-block
+    trans(0s)
+    position relative
+    float left
+    overflow hidden
+    margin 0
+    padding 0 16px
+    width auto
+    height 35px
+    border none
+    border-right 1px solid #eee
+    color #333
+    text-align center
+    font-size 14px
+    line-height 35px
+    cursor pointer
+    \*zoom 1
+
+    &:hover
+      border-color #eee
+      background-color #fafafa
+      color #333
+
+    &.active
+      border-color #333
+      background-color #333
+      box-shadow 0 1px 2px rgba(#000, 0.2) inset
+      color #fff
+
+    &.right, &.more
+      border none
+      border-left 1px solid #eee
+      float right
+
+    &.fixed
+      float left !important
+      overflow visible
+      padding 0 8px
+      border none
+      font-weight normal
+      font-size 18px
+      font-family Michroma, 'Segoe UI Light', 'Segoe UI', 'Segoe UI WP', 'Microsoft Jhenghei', '微软雅黑', sans-serif, Times
+      cursor default
+
+      &:hover
+        background-color transparent
+        box-shadow none
+        color #333
+
+      &:before
+        background-color color-info
+        content ''
+        display inline-block
+        height 16px
+        margin-right 4px
+        width 2px
+
+      .hint
+        margin 0 0 0 4px
+        color #ccc
+        font-size 10px
+        _display none
+
+    &.tool
+      position absolute
+      top 0
+      right 0
+      margin-right 8px
+      padding 0
+      border none !important
+      background-color transparent
+      cursor default
+
+      &:hover
+        background none
+
+      .btn
+        position relative
+        top 3px
+        min-width 48px
+        width auto
+        height 28px
+        line-height 26px
+        \*width 32px

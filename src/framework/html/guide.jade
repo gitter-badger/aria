@@ -1,0 +1,290 @@
+//-var
+- var mBase = cross ? base : ''
+
+//-guide
+- if(simple){var c = 'simple'}else{var c = ''};
+#guide-space(class="#{c}")
+#guide(class="#{c}")
+    #guide-inner
+        .a
+            - if(debug){var a = 'flushtable.aspx'}else{var a = ''}
+            a#a-logo-guide(href="#{mBase}/#{a}", title="天下漫友是一家")
+            form#area-search-guide(target="_blank", method="get", action="#{mBase}/search/")
+                - if(fm)
+                    | [@cms_slide_list count=1 typeId=49]
+                    | [#assign arr=tag_list[0].title?split(';')]
+                    | [#list arr as a]
+                    | [#if a_index == 0]
+                    | [#if a?length gt 0]
+                    | [#assign b=a?split(',')]
+                    input.ipt-search(name="query", type="text", value="${b[0]}", placeholder="大家都在搜：${b[0]}", autocomplete="off", x-webkit-speech)
+                    | [/#if]
+                    | [/#if]
+                    | [/#list]
+                    | [/@cms_slide_list]
+                - else
+                    input.ipt-search(name="query", type="text", placeholder="搜索", autocomplete="off", x-webkit-speech)
+                input.btn-search(type="submit", value="搜索", title="搜索")
+                span.clearfix
+                ul.menu.menu-search
+            #area-user-guide
+                a#a-history-guide.tool(href="/member/#area=history", target="_blank")
+                    i.icon.icon-history
+                    p 看过
+                a#a-post-guide.tool(href="/member/#area=#{'post-' + (guideType == 'article' ? 'article' : 'simple')}", target="_blank")
+                    i.icon.icon-upload
+                    p 投稿
+                a#a-favor-guide.tool(href="/member/#area=favourite", target="_blank")
+                    i.icon.icon-folder-open
+                    p 收藏
+                a#a-login-guide.tool.hidden(href="/login/", target="_blank")
+                    i.icon.icon-user
+                    p 登录/注册
+                a#a-avatar-guide.thumb.hidden(href="/member/", target="_blank")
+                    img.avatar
+                    p.info-hint.hidden 0
+                span.clearfix
+        .b
+            .l
+                - if(debug){var a = 'flushtable.aspx'}else{var a = ''}
+                a.c5.wc3.first.only(href="#{mBase}/#{a}", title="天下漫友是一家") 首页
+                a.c5.wc4.swc5(href="#{mBase}/v/list1/index.htm", data-channel="anime") 动画
+                    .tail
+                a.c6.wc5(href="#{mBase}/v/list58/index.htm", data-channel="music") 音乐
+                    .tail
+                a.c1.wc5.swc6(href="#{mBase}/v/list59/index.htm", data-channel="game") 游戏
+                    .tail
+                a.c2.wc6(href="#{mBase}/v/list60/index.htm", data-channel="joy") 娱乐
+                    .tail
+                a.c2.wc1(href="#{mBase}/v/list70/index.htm", data-channel="tech") 科技
+                    .tail
+                a.c3.wc2.swc1(href="#{mBase}/v/list69/index.htm", data-channel="sport") 体育
+                    .tail
+                a.c4.wc2.sc3(href="#{mBase}/v/list68/index.htm", data-channel="film") 影视
+                    .tail
+                a.c5.wc3.sc4(href="#{mBase}/v/list110/index.htm", data-channel="article") 文章
+                    .tail
+                a.c5.wc4.sc4.swc3(href="#{mBase}/album/index.htm", data-channel="album") 合辑
+                    .tail
+                //-a.c6.wc5.only(href="#{douyu}", target="_blank") 直播
+                a.c5.wc4.only(href="#{mBase}/v/list144/index.htm") 番剧
+                    .tail
+                a.c1.wc5.sc6.swc4.last(href="http://h.acfun.tv/", target="_blank", data-channel="extra") 更多
+                    .tail
+                span.clearfix
+            .r
+                - if(wide)
+                    a#a-emot-guide.wide-only(href="/emot/")
+                        i.icon.icon-smile-o
+                        | AC娘表情包下载
+                a#a-app-guide(href="/app/")
+                    i.icon.icon-tablet
+                    | 移动客户端下载
+                span.clearfix
+            span.clearfix
+        #win-info-guide.win.hidden
+            .mainer
+                .a
+                    .l
+                        a#a-name-guide(href="/member/", target="_blank", title="前往我的个人中心").name
+                    .r
+                        a#a-logout-guide(href="/logout.aspx", title="退出登录")
+                            i.icon.icon-power-off
+                            | 退出登录
+                    span.clearfix
+                .b
+                .c
+                    a(href="/member/#area=mail", target="_blank") 查看更多
+                .tail
+        #win-history-guide.win.hidden
+            .mainer
+                .b
+                .c
+                    a(href="/member/#area=history", target="_blank") 查看更多
+                .tail
+        #win-post-guide.win.hidden
+            .mainer
+                .b
+                    a(href="/member/#area=post-video", target="_blank") 投视频
+                    a(href="/member/#area=post-article", target="_blank") 投文章
+                .tail
+    #sub-guide
+        #sub-guide-inner
+            .unit.channel-anime.hidden.c5.wc4
+                - var arr = [[120, '国产动画'], [106, '动画短片'], [107, 'MAD·AMV'], [108, 'MMD·3D'], [67, '新番连载'], [109, '旧番补档']]
+                each a in arr
+                    a(href="#{mBase}/v/list#{a[0]}/index.htm") #{a[1]}
+                - var mGid = 54
+                - if(fm)
+                    p.divider-x |
+                    | [@cms_slide_list count=1 typeId=88 channelId=1]
+                    | [#assign arr=tag_list[0].title?split(';')]
+                    | [#list arr as a]
+                    | [#if a?length gt 0]
+                    | [#assign b=a?split(',')]
+                    a.a-recom-guide(href="${b[1]}", target="_blank") ${b[0]}
+                    | [/#if]
+                    | [/#list]
+                    | [/@cms_slide_list]
+                span.clearfix
+            .unit.channel-music.hidden.c6.wc5
+                - var arr = [[101, '演唱·乐器'], [102, '宅舞'], [103, 'Vocaloid'], [105, '流行音乐'], [104, 'ACG音乐']]
+                each a in arr
+                    a(href="#{mBase}/v/list#{a[0]}/index.htm") #{a[1]}
+                - var mGid = 56
+                - if(fm)
+                    p.divider-x |
+                    | [@cms_slide_list count=1 typeId=88 channelId=58]
+                    | [#assign arr=tag_list[0].title?split(';')]
+                    | [#list arr as a]
+                    | [#if a?length gt 0]
+                    | [#assign b=a?split(',')]
+                    a.a-recom-guide(href="${b[1]}", target="_blank") ${b[0]}
+                    | [/#if]
+                    | [/#list]
+                    | [/@cms_slide_list]
+                span.clearfix
+            .unit.channel-game.hidden.c1.wc5
+                - var arr = [[83, '游戏集锦'], [84, '实况解说'], [71, 'Flash游戏'], [72, 'Mugen'], [85, '英雄联盟']]
+                each a in arr
+                    - if(a[0] == 71)
+                        a.hidden(href="#{mBase}/v/list#{a[0]}/index.htm") #{a[1]}
+                    - else
+                        a(href="#{mBase}/v/list#{a[0]}/index.htm") #{a[1]}
+                - var mGid = 58
+                - if(fm)
+                    p.divider-x |
+                    | [@cms_slide_list count=1 typeId=88 channelId=59]
+                    | [#assign arr=tag_list[0].title?split(';')]
+                    | [#list arr as a]
+                    | [#if a?length gt 0]
+                    | [#assign b=a?split(',')]
+                    a.a-recom-guide(href="${b[1]}", target="_blank") ${b[0]}
+                    | [/#if]
+                    | [/#list]
+                    | [/@cms_slide_list]
+                span.clearfix
+            .unit.channel-joy.hidden.c2.wc6
+                - var arr = [[86, '生活娱乐'], [87, '鬼畜调教'], [88, '萌宠'], [89, '美食'], [121, '原创网络剧']]
+                each a in arr
+                    a(href="#{mBase}/v/list#{a[0]}/index.htm") #{a[1]}
+                - var mGid = 60
+                - if(fm)
+                    p.divider-x |
+                    | [@cms_slide_list count=1 typeId=88 channelId=60]
+                    | [#assign arr=tag_list[0].title?split(';')]
+                    | [#list arr as a]
+                    | [#if a?length gt 0]
+                    | [#assign b=a?split(',')]
+                    a.a-recom-guide(href="${b[1]}", target="_blank") ${b[0]}
+                    | [/#if]
+                    | [/#list]
+                    | [/@cms_slide_list]
+                span.clearfix
+            .unit.channel-tech.hidden.c2.wc1
+                - var arr = [[90, '科学技术'], [91, '数码'], [92, '军事'], [122, '汽车']]
+                each a in arr
+                    a(href="#{mBase}/v/list#{a[0]}/index.htm") #{a[1]}
+                - var mGid = 62
+                - if(fm)
+                    p.divider-x |
+                    | [@cms_slide_list count=1 typeId=88 channelId=70]
+                    | [#assign arr=tag_list[0].title?split(';')]
+                    | [#list arr as a]
+                    | [#if a?length gt 0]
+                    | [#assign b=a?split(',')]
+                    a.a-recom-guide(href="${b[1]}", target="_blank") ${b[0]}
+                    | [/#if]
+                    | [/#list]
+                    | [/@cms_slide_list]
+                span.clearfix
+            .unit.channel-sport.hidden.c3.wc2
+                - var arr = [[93, '惊奇体育'], [94, '足球'], [95, '篮球']]
+                each a in arr
+                    a(href="#{mBase}/v/list#{a[0]}/index.htm") #{a[1]}
+                - var mGid = 64
+                - if(fm)
+                    p.divider-x |
+                    | [@cms_slide_list count=1 typeId=88 channelId=69]
+                    | [#assign arr=tag_list[0].title?split(';')]
+                    | [#list arr as a]
+                    | [#if a?length gt 0]
+                    | [#assign b=a?split(',')]
+                    a.a-recom-guide(href="${b[1]}", target="_blank") ${b[0]}
+                    | [/#if]
+                    | [/#list]
+                    | [/@cms_slide_list]
+                span.clearfix
+            .unit.channel-film.hidden.c4.wc2
+                - var arr = [[96, '电影'], [97, '剧集'], [98, '综艺'], [99, '特摄·布袋戏'], [100, '纪录片']]
+                each a in arr
+                    a(href="#{mBase}/v/list#{a[0]}/index.htm") #{a[1]}
+                - var mGid = 66
+                - if(fm)
+                    p.divider-x |
+                    | [@cms_slide_list count=1 typeId=88 channelId=68]
+                    | [#assign arr=tag_list[0].title?split(';')]
+                    | [#list arr as a]
+                    | [#if a?length gt 0]
+                    | [#assign b=a?split(',')]
+                    a.a-recom-guide(href="${b[1]}", target="_blank") ${b[0]}
+                    | [/#if]
+                    | [/#list]
+                    | [/@cms_slide_list]
+                span.clearfix
+            .unit.channel-article.hidden.c5.wc3
+                - var arr = [[110, '文章综合'], [73, '工作·情感'], [74, '动漫文化'], [75, '小说·漫画']]
+                each a in arr
+                    a(href="#{mBase}/v/list#{a[0]}/index.htm") #{a[1]}
+                - var mGid = 68
+                - if(fm)
+                    p.divider-x |
+                    | [@cms_slide_list count=1 typeId=88 channelId=63]
+                    | [#assign arr=tag_list[0].title?split(';')]
+                    | [#list arr as a]
+                    | [#if a?length gt 0]
+                    | [#assign b=a?split(',')]
+                    a.a-recom-guide(href="${b[1]}", target="_blank") ${b[0]}
+                    | [/#if]
+                    | [/#list]
+                    | [/@cms_slide_list]
+                span.clearfix
+            .unit.channel-album.hidden.c5.wc4
+                - var arr = [[422, 'AcFun专题']]
+                each a in arr
+                    a(href="#{mBase}/a/aa#{a[0]}") #{a[1]}
+                - var mGid = 70
+                - if(fm)
+                    p.divider-x |
+                    | [@cms_slide_list count=1 typeId=#{mGid}]
+                    | [#assign arr=tag_list[0].title?split(';')]
+                    | [#list arr as a]
+                    | [#if a?length gt 0]
+                    | [#assign b=a?split(',')]
+                    a.a-recom-guide(href="${b[1]}", target="_blank") ${b[0]}
+                    | [/#if]
+                    | [/#list]
+                    | [/@cms_slide_list]
+                span.clearfix
+            .unit.channel-extra.hidden.c6.wc5
+                - var arr = [['http://h.acfun.tv/', '匿名版'], ['http://www.douyu.tv/', '斗鱼直播'], ['/rank/', '排行榜'], ['http://cp.acfun.tv/', '乐彩'], ['/j/', '页游'], ['/map/', '地图']]
+                each a in arr
+                    - if(a[0] == '/j/')
+                        a.hidden(href="#{a[0]}", target="_blank") #{a[1]}
+                    - else
+                        a(href="#{a[0]}", target="_blank") #{a[1]}
+                span.clearfix
+
+//-notice
+#block-notice-guide.hidden
+    .temp.hidden
+        .item
+            | [text]
+            span.close(title="不再提示", data-time="[time]")
+                i.icon.icon-times-circle-o
+    .inner
+
+//-test
+- if(debug && test)
+    #qunit(data-src="#{test}")
+        #qunit-fixture

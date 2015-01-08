@@ -16,6 +16,7 @@ port = process.env.PORT or 80
 #============
 #render
 #============
+render = {}
 
 #common
 render.common = (req, res, callback) ->

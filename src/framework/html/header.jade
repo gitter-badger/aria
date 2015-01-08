@@ -1,0 +1,18 @@
+#header
+    #header-inner.inner
+    #btn-top-shortcut.hidden
+        - if(light)
+            .item.light
+                i.icon.icon-lightbulb-o
+                p.hint.single 关灯
+        - if(comm)
+            .item.comm
+                i.icon.icon-comments
+                p.hint 前往评论
+                span.pts 0
+        a.item.feedback(href="#{base}/feedback/", target="_blank")
+            i.icon.icon-paper-plane
+            p.hint 意见反馈
+        .item.top
+            i.icon.icon-chevron-up
+            p.hint 返回顶部

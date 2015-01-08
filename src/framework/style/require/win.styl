@@ -1,0 +1,22 @@
+//rule
+if import != false
+  @import 'rule'
+
+//curtain
+#curtain
+  @extend .abs
+  top 0
+  left 0
+  z-index 4
+  width 100%
+  height 100%
+  background rgba(#000, 0.8)
+  cursor pointer
+  position fixed
+
+.no-rgba #curtain, .no-cssgradients #curtain
+  @extend .abs
+  background-color #000
+  opacity 0.5
+  filter alpha\(opacity\=80\)
+  _background none

@@ -1,0 +1,32 @@
+//rule
+if import != false
+  @import 'rule'
+
+#block-notice-guide
+  background-color #ffe
+  padding 5px 0
+  position relative
+  z-index 1
+  border-bottom 1px solid #ddd
+
+  .inner
+    width 980px
+    text-align left
+  .item
+    height 24px
+    line-height @height
+    overflow hidden
+    color #666
+    font-size 14px
+
+    .icon
+      top 3px
+
+    a
+      color #369
+      &:hover
+        text-decoration underline
+
+    .close
+      margin-left 8px
+      cursor pointer

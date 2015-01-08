@@ -1,0 +1,109 @@
+//rule
+
+//date
+date = '20140915'
+
+//path
+cdn = 'http://static.acfun.tv'
+path = cdn + '/dotnet/20130418'
+
+//color
+color-primary = #3a9bd9
+color-success = #95ba12
+color-info = #055f95
+color-warning = #ff9101
+color-danger = #e74c3c
+color-debug = #9b59b6
+//color
+navy = #001f3f
+blue = #0074d9
+aqua = #7fdbff
+teal = #39cccc
+olive = #3d9970
+green = #2ecc40
+lime = #01ff70
+yellow = #ffdc00
+orange = #ff851b
+red = #ff4136
+fuchsia = #f012be
+purple = #b10dc9
+maroon = #85144b
+white = #ffffff
+silver = #dddddd
+gray = #aaaaaa
+black = #111111
+
+//rule
+//inline-block
+.inline-block
+  display inline-block
+  _display inline
+
+//transtion
+trans(delay = 0.2s, time = 0.2s, type = all)
+  transition time delay type ease
+
+//absoulute
+.abs
+  position absolute
+  display block
+
+//float
+.l
+  float left
+
+.r
+  float right
+
+//hidden
+.hidden
+  display none !important
+
+//no select
+.no-select
+  -webkit-user-select none
+  -moz-user-select none
+  -ms-user-select none
+  -o-user-select none
+  user-select none
+  cursor default
+
+//no float
+.no-float
+  float none !important
+
+//wait
+.wait
+  cursor wait !important
+  *
+    cursor wait
+
+//transform
+transform()
+  -webkit-transform arguments
+  -moz-transform arguments
+  -ms-transform arguments
+  -o-transform arguments
+  transform arguments
+//transition
+transition()
+  -webkit-transition arguments
+  -moz-transition arguments
+  -ms-transition arguments
+  -o-transition arguments
+  transition arguments
+//filter
+filter()
+  -webkit-filter arguments
+  -moz-filter arguments
+  -ms-filter arguments
+  -o-filter arguments
+  filter arguments
+
+//salt
+salt()
+  unquote('url(' + arguments + '?salt='+ date + ')')
+
+//cdn
+cdn()
+  unquote('url(' + path + arguments + '?salt='+ date + ')')

@@ -1,0 +1,45 @@
+//- var
+- var mBase = cross ? base : ''
+//-html
+span.clearfix
+#footer
+    #footer-inner
+        .a
+            .l.d
+                #avatar-ac-footer.hidden
+                a#a-logo-footer(href="/")
+            .l.e
+                p
+                    | 本站不提供任何视听上传服务
+                    br
+                    | 所有内容均来自视频分享站点所提供的公开引用资源
+                //-p 增值电信业务经营许可证 - 鄂ICP备 14001923号
+                p 信息网络传播视听节目许可证 1904047
+                p Copyright © 2007-2015 AcFun. 保留所有权利
+                - var t = new Date(date);t = t.getFullYear() + '.' + (1 + t.getMonth()) + '.' + t.getDate() + ' ' + t.getHours() + ':' + (t.getMinutes() < 10 ? '0' + t.getMinutes() : t.getMinutes()) + ':' + (t.getSeconds() < 10 ? '0' + t.getSeconds() : t.getSeconds());
+                - var c = debug ? '' : 'hidden'
+                p#hint-time-released(class="#{c}", data-time="#{t}") Released at #{t}.
+            span.clearfix
+        .unit
+            p.b 关于我们
+            a(href="#{mBase}/info/#page=about", target="_blank") 关于AcFun弹幕视频网
+            a(href="#{mBase}/info/#page=contact", target="_blank") 联系我们
+            a(href="#{mBase}/info/#page=joinus", target="_blank") 加入我们
+            a(href="http://weibo.com/danmushipin/", target="_blank") 官方新浪微博
+            a(href="http://t.qq.com/AcFun-tv/", target="_blank") 官方腾讯微博
+        .unit
+            p.b 问题反馈
+            //-a 更新历史
+            a(href="#{mBase}/feedback/", target="_blank") 建议和反馈
+            a(href="#{mBase}/report/", target="_blank") 违规举报
+            a(href="#{mBase}/info/#page=agreement", target="_blank") 用户协议
+            a(href="#{mBase}/info/#page=disclaimer", target="_blank") 免责声明
+        .unit
+            p.b 功能
+            a(href="#{mBase}/map/", target="_blank") 网站地图
+            a(href="#{mBase}/info/#page=help", target="_blank") 帮助手册
+            a(href="#{mBase}/app/", target="_blank") 移动客户端
+            a(href="#{mBase}/emot/", target="_blank") 表情包下载
+            a(href="#{mBase}/rank/", target="_blank") 排行榜
+        span.clearfix
+    .c

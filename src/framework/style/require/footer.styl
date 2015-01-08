@@ -1,0 +1,86 @@
+//rule
+if import != false
+  @import 'rule'
+
+#footer
+  background url(../project/homura/style/image/footer.png) left top repeat
+  border-top 8px solid #333
+  background-color #222
+  box-shadow 0 1px 2px rgba(#000, 0.2) inset
+  margin-top 96px
+  .c
+    height 2px
+    background url(../project/homura/style/image/border.png) center top repeat-x
+#footer-inner
+  position relative
+  padding 32px 0
+  color #444
+  line-height 16px
+  a
+    color #666
+    &:hover
+      color #999
+  .a
+    float left
+    width 47.5%
+
+    p
+      font-size 12px
+      margin 0 0 4px
+  .unit
+    float left
+    width 17.5%
+    \*width 14.9%
+    padding-left 2.5%
+    .b
+      color #fff
+      font-size 14px
+      border-bottom 1px dashed #555
+      height 32px
+      line-height @height
+    a
+      display block
+      margin 4px 0
+  .d
+    width 97px
+    text-align center
+    position relative
+    .pts
+      color #fff
+      background-color red
+      @extend .abs
+      right 4px
+      top 12px
+      height 16px
+      line-height @hegiht
+      padding 0 4px
+      border-radius 2px
+      box-shadow 0 1px 3px rgba(#000, 0.3)
+      font-size 12px
+  .e
+    width 300px
+    margin 32px 0 0 32px
+#a-logo-footer
+  width 97px
+  height 25px
+  display block
+  background salt('../project/homura/style/image/sprite-guide.png') 0 -88px no-repeat
+  margin 56px auto 0
+#avatar-ac-footer
+  w = 80px
+  background-color #fff
+  width w
+  height w
+  border-radius w * 0.5
+  margin 8px auto -48px
+  position relative
+  overflow hidden
+  cursor pointer
+  box-shadow 0 0 4px #000
+
+  img
+    width w * 0.8
+    height (@width / 15) * 13
+    @extend .abs
+    left (w - @width) * 0.5
+    top (w - @height) * 0.5
