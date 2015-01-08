@@ -28,7 +28,6 @@
   },
   "dependencies": {
     "express": "^4.10.7",
-    "gulp": "^3.8.10",
     "jade": "^1.8.2",
     "memory-cache": "^0.0.5",
     "node-jquery-lite": "^0.2.4",
