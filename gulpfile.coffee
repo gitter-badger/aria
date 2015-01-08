@@ -8,15 +8,9 @@ plumber = require 'gulp-plumber'
 replace = require 'gulp-replace'
 clean = require 'gulp-clean'
 ignore = require 'gulp-ignore'
+concat = require 'gulp-concat'
 
-coffee = require 'gulp-coffee'
 uglify = require 'gulp-uglify'
-
-jade = require 'gulp-jade'
-
-stylus = require 'gulp-stylus'
-
-cson = require 'gulp-cson'
 
 #============
 #error
@@ -33,3 +27,9 @@ log = console.log
 #============
 #task
 #============
+
+#uglify
+gulp.task 'uglify', ->
+  gulp.src ['./**/*.js', '!./node_modules/**']
+  .pipe uglify()
+  .pipe gulp.dest './'
