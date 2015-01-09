@@ -39,10 +39,9 @@ do ->
   #user
   w.user =
     ver: '0.1.0'
-    name: $.cookie('ac_username') or '用户'
-    avatar: $.cookie('ac_userimg') or s.path.short + '/style/image/avatar.jpg'
+    key: $.cookie 'key'
+    token: $.cookie 'token'
     online: 0
-    ban: false
     uid: -1
     group: -1
 
@@ -282,36 +281,6 @@ $.fn.readyTabbable = (param) ->
 #======
 #window
 bind 'win', ['fn.unfold', 'fn.shut', 'curtain', 'fn.ensure', 'ensure']
-
-#card
-$.fn.card = (param, callback) ->
-  f =
-    name: '$.fn.card()'
-    win: $$ '#win-info'
-    direction: 'auto'
-    callback: callback
-  f.mainer = f.win.children 'div.mainer'
-  #check param
-  switch $.type p = param
-    when 'string' then f.direction = $.trim p
-    when 'function' then f.callback = p
-  #class
-  c = '.card'
-  #timer
-  t = f.win.data().timer
-  @each ->
-    obj = $ @
-    obj
-    .off 'mouseenter' + c
-    .on 'mouseenter' + c, ->
-      clearTimeout t
-      t = setTimeout ->
-        $.require 'win', -> system.func.showCard obj, f
-      , 200
-    .off 'mouseleave' + c
-    .on 'mouseleave' + c, ->
-      clearTimeout t
-      $$('#win-info').mouseleave()
 #======
 
 #======
@@ -464,25 +433,6 @@ bind 'jqueryui', ['fn.draggable', 'fn.droppable', 'fn.selectable', 'fn.sortable'
 #======
 #parse
 
-#parseChannel
-$.parseChannel = (param) ->
-  #make list
-  list = $.parseChannel.list or []
-  #check param
-  switch $.type param
-    when 'number'
-      for a in list when a[0] == param
-        c = a[1]
-        break
-      c or '未知频道'
-    when 'string'
-      for a in list when a[1] == param
-        c = a[0]
-        break
-      c or 1
-    else '未知频道'
-
-
 #parseColor
 $.parseColor = (string) ->
   #check param
@@ -505,70 +455,6 @@ $.parseColor = (string) ->
       '#' + c.join ''
     else '#333333'
 
-#parseGet
-$.parseGet = (param) ->
-  func = name: '$.parseGet()'
-
-  #check param
-  if param
-    #check type
-    switch $.type(param)
-      when 'string'
-        #string
-        func.text = param
-      when 'object'
-        #object
-        $.extend func, param
-        func.name = '$.parseGet()'
-    func.text = if func.text.search(/(?:\[[^\]]*?\[)|(?:\][^\[]*?\])/) == -1 then func.text else func.text.replace(/\[.*?\]/g, '').replace(/\[|\]/g, '')
-    func.text = func.text
-    .replace(/&amp;/g, '&')
-    .replace(/&nbsp;/g, ' ')
-    .replace(/&#39;/g, '\'')
-    .replace(/(&quot;|&#34;)/g, '"')
-    .replace(/&gt;/g, '>')
-    .replace(/&lt;/g, '<')
-    .replace(/<br\s?\/?>/g, '')
-    .replace(/\r/g, '\n')
-    .replace(/\n{2,}/g, '\n')
-    #remove \n+ at beginning
-    func.text.replace /\n+/, ''  if func.text.search(/\n+/) != -1
-
-    #ubb2html
-    if window.ubb2html then func.text = window.ubb2html func.text else func.text = $.parseSafe func.text
-
-    #
-    func.text = func.text
-      .replace /\[ac\=(\S+?)\](\S+?)\[\/ac\]/g, '<a class="ac title btn" data-aid="$1" href="/v/ac$1" target="_blank"><i class="icon icon-play-circle"></i>$2</a>'
-      .replace /\[aa\=(\S+?)\](\S+?)\[\/aa\]/g, '<a class="aa btn" href="/a/aa$1" target="_blank" title="该链接通向AcFun合辑"><i class="icon icon-list"></i>$2</a>'
-      .replace /\[sm\=(\S+?)\](\S+?)\[\/sm\]/g, '<a class="sm btn" href="http://www.nicovideo.jp/watch/sm$1" target="_blank" title="该链接通向ニコニコ动画"><i class="icon icon-film"></i>$2</a>'
-      .replace /\[email\](\S+?)\[\/email\]/g, '<a class="email btn" href="mailto:$1" target="_blank" title="点击以发送邮件"><i class="icon icon-envelope"></i>$1</a>'
-      .replace /\[wiki\=(\S+?)\](\S+?)\[\/wiki\]/g, '<a class="wiki btn" href="http://wiki.acfun.tv/index.php/$1" target="_blank" title="该链接通向AC百科"><i class="icon icon-tag"></i>$2</a>'
-      .replace /\[emot\=(\S+?)\,(\S+?)\/\]/g, '<img class="emotion" src="' + system.path.short + '/umeditor/dialogs/emotion/images/$1/$2.gif">'
-
-    #check showImage
-    if !func.showImage
-      func.text = func.text
-      .replace(/\[img\](\S+?)\[\/img\]/g, '<a class="btn btn-img" href="$1" target="_blank" title="点击以浏览图像"><i class="icon icon-picture-o"></i>图像</a>')
-      .replace(/\[img\=(\S+?)\](\S+?)\[\/img\]/g, '<a class="btn btn-img" href="$2" target="_blank" title="$1"><i class="icon icon-picture-o"></i>$1</a>')
-    else
-      func.text = func.text
-      .replace(/\[img\](\S+?)\[\/img\]/g, '<a class="thumb" href="$1" target="_blank" title="点击以浏览图像"><img class="preview" src="$1"></a>')
-      .replace(/\[img\=(\S+?)\](\S+?)\[\/img\]/g, '<a class="thumb" href="$2" target="_blank" title="$1"><img class="preview" src="$2"></a>')
-    func.text = func.text
-    .replace(/\[at\]([\s\S]+?)\[\/at\]/g, '<a class="name" target="_blank" href="/member/findUser.aspx?userName=$1">@$1</a>')
-    .replace(/\[\/?back.*?\]/g, '')
-    .replace(/\[username\]([\s\S]+?)\[\/username\]/g, '<a  class="name" target="_blank" href="/member/findUser.aspx?userName=$1">$1</a>')
-    .replace(/\[.*?\]/g, '')
-    .replace(/([\s\W\_])on\w+?\s*?\=/g, '$1data-event=')
-    $.trim func.text
-
-    func.text = func.text
-    .replace(/&amp;/g, '&')
-    .replace(/&#91;/g, '[')
-    .replace(/&#93;/g, ']')
-  else ''
-
 #parseJson
 $.parseJson = (data) ->
   f = (p) ->
@@ -580,90 +466,6 @@ $.parseJson = (data) ->
     when 'string' then f d
     when 'object' then d
     else null
-
-#parsePost
-$.parsePost = (param) ->
-  func =
-    name: '$.parsePost()'
-    text: ''
-  #check param
-  if param
-    switch $.type(param)
-      when 'string', 'number'
-        func.text = param
-      else $.i "[#{func.name}]#7"
-  if func.text?.length
-    func.text = '[mimiko]' +
-      func.text
-        #[u]
-        .replace /<span\sstyle="text\-decoration\:underline;">([\s\S]+?)<\/span>/g, '[u]$1[/u]'
-        #[s]
-        .replace /<span\sstyle="text\-decoration:line\-through;">([\s\S]+?)<\/span>/g, '[s]$1[/s]'
-        #[emot]
-        .replace /<img[^>]*?src="[^>]*?\/um?editor\/dialogs\/emotion\/images\/(\w+?)\/(\d+?)\.gif".*?>/g, '[emot=$1,$2/]'
-    #mails
-    mails = func.text.match(/\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/g)
-    func.text = func.text.replace(/\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/g, '[mimiko-mail-mark]') if mails?.length
-
-    #html2ubb
-    if window.html2ubb then func.text = window.html2ubb func.text
-
-    #
-    func.text = func.text
-      .replace(/<br\s?\/?>/g, '')
-      .replace(/(http:\/\/.*?\.(?:jpg|jpeg|png|gif))(?!\[)/g, '[img]$1[/img]')
-      .replace(/\[url\](.*?\.(?:jpg|jpeg|png|gif))\[\/url\]/g, '[img]$1[/img]')
-      .replace(/\[url\]\[img\](.*?)\[\/img\]\[\/url\]/g, '[img]$1[/img]')
-      .replace(/@([^\s<>\[\]\(\)\{\}]{2,20})/g, '[at]$1[/at]')
-      #ac
-      .replace(/\[ac(\d+?)\]/g, '[ac=$1]ac$1[/ac]')
-      .replace(/([^\w=\[\]\/])ac(\d+)/g, '$1[ac=$2]ac$2[/ac]')
-      #aa
-      .replace(/\[aa(\d+?)\]/g, '[aa=$1]ac$1[/aa]')
-      .replace(/([^\w=\[\]\/])aa(\d+)/g, '$1[aa=$2]aa$2[/aa]')
-      #sm
-      .replace(/\[sm(\d+?)\]/g, '[sm=$1]sm$1[/sm]')
-      .replace(/([^\w=\[\]\/])sm(\d+)/g, '$1[sm=$2]sm$2[/sm]')
-      #wiki
-      .replace(/\[wiki([\s\S]+?)\]/g, '[wiki=$1]$1[/wiki]')
-      .replace(/\[mimiko\]/g, '')
-
-    #rewrite mails
-    if mails?.length
-      for a in mails
-        func.text = func.text.replace(/\[mimiko\-mail\-mark\]/, '[email]' + a + '[/email]')
-
-    #fontsize
-    fs = func.text.match(/\[size.*?\]/g)
-    if fs?.length
-      func.text = func.text.replace(/\[size.*?\]/g, '[mimiko-fontsize-mark]')
-      list = [10, 12, 16, 18, 24, 32, 48]
-      for a in fs
-        b = a.match(/\d+/)[0] | 0
-        a = '[size=14px]' if $.inArray(b, list) < 0
-        func.text = func.text.replace(/\[mimiko\-fontsize\-mark\]/, a)
-
-  #img to emot
-  func.text = func.text.replace(/\[img\].+\/um?editor\/dialogs\/emotion\/images\/(\w+?)\/(\d+?)\.gif\[\/img\]/g, '[emot=$1,$2/]')
-
-  #check pairs
-  list = ['b', 'i', 'u', 's', 'color']
-  for a in list
-    r = new RegExp('\\[' + a, 'ig')
-    arr = func.text.match(r)
-    if arr?.length
-      r = new RegExp('\\[\\/' + a, 'ig')
-      b = func.text.match(r)
-      func.text = func.text.replace(/\[.*?\]/g, '')  if !b or arr.length != b.length
-
-  #final check
-  if func.text.search(/\[[^\]]+\[/) >= 0 or func.text.search(/\][^\[]+\]/) >= 0
-    $.info "error::[#{func.name}]#7"
-    func.text = func.text.replace(/\[.*?\]/g, '')
-
-  #return
-  $.trim func.text
-
 
 #parsePts
 $.parsePts = (number) ->

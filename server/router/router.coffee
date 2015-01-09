@@ -3,8 +3,9 @@
 #============
 app = (require 'express')()
 session = require 'express-session'
-#cookie = require 'cookie-parser'
+cookie = require 'cookie-parser'
 jade = require 'jade'
+token = require '../token/token'
 
 #============
 #param
@@ -21,6 +22,12 @@ base = process.cwd()
 #============
 app.settings['x-powered-by'] = false
 app.listen port
+app.use cookie()
+
+#============
+#function
+#============
+isLogin = (req) -> if token.validate req.cookies.token, req.cookies.key then true else false
 
 #============
 #render
@@ -63,8 +70,23 @@ render.client = (req, res, callback) ->
 
 #login
 render.login = (req, res, callback) ->
+  #check login
+  if isLogin(req) then return
+
+  #key and token
+  k = $.mid()[0..7].toUpperCase()
+  t = token.generate k
+  #cookie
+  time = 864e5 * 14 #sec
+  res.cookie 'key', k, maxAge: time
+  res.cookie 'token', t, maxAge: time
   #render
-  res.send ''
+  res.json
+    success: true
+    key: k
+    token: t
+  #info
+  $.info 'info', 'add user ' + k + '/' + t
   #callback
   callback? silent: true
 

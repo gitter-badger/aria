@@ -125,9 +125,18 @@ system.func.ready = (callback) ->
     else $.i '[#area-window]#3'
 
   #check login
-  if !$.cookie 'cookie'
-    $.info 'info', 'not login.'
-    $.get '/login/'
+  #if !user.key or !user.token
+  $.getJSON '/login/'
+  .done (data) ->
+    #check success
+    if !data.success
+      return
+
+    user.key = data.key
+    user.token = data.token
+
+    #save
+    $.save 'user'
 
   #clear
   system.func.ready = null

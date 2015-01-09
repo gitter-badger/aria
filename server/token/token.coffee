@@ -37,26 +37,21 @@ exports.validate = (token, secret) ->
   try
     t = atob token
   catch err
-    $.log 'atob'
     return false
 
   #check pre and sub
   if t[0] != 'p'
-    $.log 'pre'
     return false
   if t[17] != 's'
-    $.log 'sub'
     return false
 
   t = t[1..16].split ''
 
   #get name
   name = (a for a, i in t when i % 2).join ''
-  $.log name
 
   #check name
   if name != secret
-    $.log 'name'
     return false
 
   #final
