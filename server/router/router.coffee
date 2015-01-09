@@ -71,7 +71,11 @@ render.client = (req, res, callback) ->
 #login
 render.login = (req, res, callback) ->
   #check login
-  if isLogin(req) then return
+  if isLogin(req)
+    res.json
+      success: false
+      error: 'user was logined'
+    return
 
   #key and token
   k = $.mid()[0..7].toUpperCase()
