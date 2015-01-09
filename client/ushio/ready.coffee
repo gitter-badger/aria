@@ -43,6 +43,10 @@ system.func.checkBrowser = (callback) ->
 
 #ready
 system.func.ready = (callback) ->
+
+  #reset system
+  system.path.short = '/client'
+
   #set handle
   config = window.config
   user = window.user
@@ -119,6 +123,11 @@ system.func.ready = (callback) ->
           win.css display: 'none'
           win.remove() if !win.is '#win-hint'
     else $.i '[#area-window]#3'
+
+  #check login
+  if !$.cookie 'cookie'
+    $.info 'info', 'not login.'
+    $.get '/login/'
 
   #clear
   system.func.ready = null

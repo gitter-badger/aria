@@ -61,11 +61,20 @@ render.client = (req, res, callback) ->
   #callback
   callback? silent: true
 
+#login
+render.login = (req, res, callback) ->
+  #render
+  res.send ''
+  #callback
+  callback? silent: true
+
 #============
 #rule
 #============
 #rule
 rule =
+  #login
+  '/login/': render.login
   #client
   '/client/*': render.client
   #index

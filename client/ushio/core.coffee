@@ -886,7 +886,7 @@ $.require = (p, c) ->
         r[t].add c
     else
       (r[t] = $.Callbacks 'once').add c
-      url = system.path.short + if s then '/script/' + s + '.js' else '/script/require/' + t + fix[0]
+      url = system.path.short + if s then '/ushio/lib/' + s + '.js' else '/ushio/require/' + t + fix[0]
       $.getScript url, ->
         #callbacks
         r[t].fire()
@@ -895,23 +895,9 @@ $.require = (p, c) ->
 
   #switch
   switch p
-    #comm
-    when 'comm'
-      #check
-      if r.comm then c?()
-      else
-        #css
-        id = 'style-require-comm'
-        if !$('#' + id).length
-          $$('head').append('<link id="' + id + '" href="' + system.path.short + '/project/homura/style/comm' + fix[1] + '" rel="stylesheet">')
-        #js
-        $.getScript system.path.short + '/project/homura/script/comm' + fix[0], ->
-          r.comm = 1
-          c?()
     when 'qrcode' then bind 'qrcode', 'jquery.qrcode.min' #qrcode
     when 'jqueryui' then bind 'jqueryui', 'jquery.ui.min' #jquery ui
     when 'transit' then bind 'transit', 'jquery.transit.min' #transit
-    when 'chart' then bind 'chart', 'chart.min' #chart
     #canvas
     when 'canvas'
       #check
